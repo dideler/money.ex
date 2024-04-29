@@ -1,9 +1,9 @@
 # money.ex
 
 Very simple library for money representation in Elixir.
-
-This was made for personal use in a toy project. It's not battle tested and is
-feature incomplete. I do not suggest using it in your projects.
+Made for fun and personal use in a toy project.
+Not battle tested and feature incomplete.
+Not recommended for use in your own projects.
 
 ## Installation
 
@@ -17,3 +17,9 @@ def deps do
 end
 ```
 
+## Roadmap
+
+- initialise: new, parse (maybe)
+- predicates: equals?, zero?, positive?, negative?, gt?, lt? ge?/gte? le?/lte? eq? ne?, pos?, neg?
+- operations: add, mul, div, sub, abs, convert, compare, split, allocate (maybe)
+- presenters: symbol, name, code, to_s/to_string
