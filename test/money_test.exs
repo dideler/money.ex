@@ -226,8 +226,10 @@ defmodule MoneyTest do
     assert "-£99.99" == Money.to_string(%Money{amount: -9999, currency: :GBP})
   end
 
-  # TODO: Options, e.g. code suffix, change or remove delimiter
-  test "to/string/1 with options"
+  test "to/string/1 with options" do
+    # TODO: Add more options: code suffix, delimiter, separator, trailing zeros, cents, ...
+    assert "1.00" == Money.to_string(%Money{amount: 100}, symbol: false)
+  end
 
   test "String.Chars protocol" do
     assert "$1.99" == Kernel.to_string(%Money{amount: 199, currency: :USD})

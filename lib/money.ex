@@ -148,8 +148,12 @@ defmodule Money do
   def currency_symbol(:GBP), do: "£"
   def currency_symbol(:USD), do: "$"
 
-  @spec to_string(t) :: binary
-  def to_string(%Money{amount: amount, currency: currency}) do
+  @spec to_string(t, keyword) :: binary
+  def to_string(%Money{amount: amount, currency: currency}, opts \\ []) do
+    default_ops = [symbol: true]
+    filtered_opts = Keyword.take(opts, [:symbol])
+    opts = Keyword.merge(default_ops, filtered_opts)
+
     digits =
       amount
       |> Kernel.abs()
@@ -159,8 +163,10 @@ defmodule Money do
       |> Enum.with_index()
 
     formatted_digits = digits(digits, []) |> Enum.join()
+
     polarity = if amount < 0, do: "-", else: ""
-    polarity <> currency_symbol(currency) <> formatted_digits
+    symbol = if opts[:symbol], do: currency_symbol(currency), else: ""
+    polarity <> symbol <> formatted_digits
   end
 
   def to_s(m), do: Money.to_string(m)
