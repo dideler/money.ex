@@ -151,9 +151,9 @@ defmodule Money do
 
   @spec to_string(t, keyword) :: binary
   def to_string(%Money{amount: amount, currency: currency}, opts \\ []) do
-    default_ops = [symbol: true, code: false]
-    filtered_opts = Keyword.take(opts, [:symbol, :code])
-    opts = Keyword.merge(default_ops, filtered_opts)
+    default_ops = [symbol: true, code: false, separator: ","]
+    filtered_opts = Keyword.take(opts, [:symbol, :code, :separator])
+    opts = Keyword.merge(default_ops, filtered_opts) |> Enum.into(%{})
 
     digits =
       amount
@@ -163,7 +163,7 @@ defmodule Money do
       |> Enum.reverse()
       |> Enum.with_index()
 
-    formatted_digits = digits(digits, []) |> Enum.join()
+    formatted_digits = digits(digits, [], opts) |> Enum.join()
 
     polarity = if amount < 0, do: "-", else: ""
     symbol = if opts[:symbol], do: currency_symbol(currency), else: ""
@@ -173,16 +173,16 @@ defmodule Money do
 
   def to_s(m), do: Money.to_string(m)
 
-  defp digits([], [_] = acc), do: ["0", ".", "0" | acc]
-  defp digits([], [_, _] = acc), do: ["0", "." | acc]
-  defp digits([], [_, _, _ | _] = acc), do: acc
-  defp digits([{digit, _} | rem], [_, _] = acc), do: digits(rem, [digit, "." | acc])
+  defp digits([], [_] = acc, _opts), do: ["0", ".", "0" | acc]
+  defp digits([], [_, _] = acc, _opts), do: ["0", "." | acc]
+  defp digits([], [_, _, _ | _] = acc, _opts), do: acc
+  defp digits([{digit, _} | rem], [_, _] = acc, o), do: digits(rem, [digit, "." | acc], o)
 
-  defp digits([{digit, i} | rem], acc) do
+  defp digits([{digit, i} | rem], acc, %{separator: separator} = opts) do
     if rem(i, 3) == 2 do
-      digits(rem, [digit, "," | acc])
+      digits(rem, [digit, separator | acc], opts)
     else
-      digits(rem, [digit | acc])
+      digits(rem, [digit | acc], opts)
     end
   end
 end
