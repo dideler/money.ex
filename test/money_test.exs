@@ -231,6 +231,13 @@ defmodule MoneyTest do
     assert "£1.00 GBP" == Money.to_string(%Money{amount: 100}, code: true)
     assert "£1.000.00" == Money.to_string(%Money{amount: 100_000}, separator: ".")
     assert "£1,000,00" == Money.to_string(%Money{amount: 100_000}, delimiter: ",")
+
+    assert "€1.000,00 EUR" ==
+             Money.to_string(%Money{amount: 100_000, currency: :EUR},
+               separator: ".",
+               delimiter: ",",
+               code: true
+             )
   end
 
   test "String.Chars protocol" do

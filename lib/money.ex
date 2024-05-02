@@ -12,7 +12,7 @@ defmodule Money do
     end
   end
 
-  @supported_currencies ~w(GBP USD)a
+  @supported_currencies ~w(GBP USD EUR)a
 
   @type currency ::
           unquote(
@@ -144,10 +144,12 @@ defmodule Money do
   def currency_name(%Money{currency: c}), do: currency_name(c)
   def currency_name(:GBP), do: "Sterling"
   def currency_name(:USD), do: "United States dollar"
+  def currency_name(:EUR), do: "Euro"
 
   def currency_symbol(%Money{currency: c}), do: currency_symbol(c)
   def currency_symbol(:GBP), do: "£"
   def currency_symbol(:USD), do: "$"
+  def currency_symbol(:EUR), do: "€"
 
   @spec to_string(t, keyword) :: binary
   def to_string(%Money{amount: amount, currency: currency}, opts \\ []) do
