@@ -151,8 +151,8 @@ defmodule Money do
 
   @spec to_string(t, keyword) :: binary
   def to_string(%Money{amount: amount, currency: currency}, opts \\ []) do
-    default_ops = [symbol: true, code: false, separator: ","]
-    filtered_opts = Keyword.take(opts, [:symbol, :code, :separator])
+    default_ops = [symbol: true, code: false, separator: ",", delimiter: "."]
+    filtered_opts = Keyword.take(opts, [:symbol, :code, :separator, :delimiter])
     opts = Keyword.merge(default_ops, filtered_opts) |> Enum.into(%{})
 
     digits =
@@ -173,14 +173,16 @@ defmodule Money do
 
   def to_s(m), do: Money.to_string(m)
 
-  defp digits([], [_] = acc, _opts), do: ["0", ".", "0" | acc]
-  defp digits([], [_, _] = acc, _opts), do: ["0", "." | acc]
+  defp digits([], [_] = acc, %{delimiter: del}), do: ["0", del, "0" | acc]
+  defp digits([], [_, _] = acc, %{delimiter: del}), do: ["0", del | acc]
   defp digits([], [_, _, _ | _] = acc, _opts), do: acc
-  defp digits([{digit, _} | rem], [_, _] = acc, o), do: digits(rem, [digit, "." | acc], o)
 
-  defp digits([{digit, i} | rem], acc, %{separator: separator} = opts) do
+  defp digits([{digit, _} | rem], [_, _] = acc, %{delimiter: del} = opts),
+    do: digits(rem, [digit, del | acc], opts)
+
+  defp digits([{digit, i} | rem], acc, %{separator: sep} = opts) do
     if rem(i, 3) == 2 do
-      digits(rem, [digit, separator | acc], opts)
+      digits(rem, [digit, sep | acc], opts)
     else
       digits(rem, [digit | acc], opts)
     end
