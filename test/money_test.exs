@@ -229,6 +229,7 @@ defmodule MoneyTest do
   test "to/string/1 with options" do
     # TODO: Add more options: code suffix, delimiter, separator, trailing zeros, cents, ...
     assert "1.00" == Money.to_string(%Money{amount: 100}, symbol: false)
+    assert "£1.00 GBP" == Money.to_string(%Money{amount: 100}, code: true)
   end
 
   test "String.Chars protocol" do

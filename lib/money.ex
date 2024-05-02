@@ -138,7 +138,8 @@ defmodule Money do
 
   def convert(%Money{}, _exchange_rate), do: raise(ArgumentError, "Exchange rate invalid")
 
-  def currency_code(%Money{currency: c}), do: Kernel.to_string(c)
+  def currency_code(%Money{currency: c}), do: currency_code(c)
+  def currency_code(c) when c in @supported_currencies, do: Kernel.to_string(c)
 
   def currency_name(%Money{currency: c}), do: currency_name(c)
   def currency_name(:GBP), do: "Sterling"
@@ -150,8 +151,8 @@ defmodule Money do
 
   @spec to_string(t, keyword) :: binary
   def to_string(%Money{amount: amount, currency: currency}, opts \\ []) do
-    default_ops = [symbol: true]
-    filtered_opts = Keyword.take(opts, [:symbol])
+    default_ops = [symbol: true, code: false]
+    filtered_opts = Keyword.take(opts, [:symbol, :code])
     opts = Keyword.merge(default_ops, filtered_opts)
 
     digits =
@@ -166,7 +167,8 @@ defmodule Money do
 
     polarity = if amount < 0, do: "-", else: ""
     symbol = if opts[:symbol], do: currency_symbol(currency), else: ""
-    polarity <> symbol <> formatted_digits
+    code = if opts[:code], do: currency_code(currency), else: ""
+    String.trim("#{polarity}#{symbol}#{formatted_digits} #{code}")
   end
 
   def to_s(m), do: Money.to_string(m)
