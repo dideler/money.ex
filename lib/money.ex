@@ -153,9 +153,10 @@ defmodule Money do
 
   @spec to_string(t, keyword) :: binary
   def to_string(%Money{amount: amount, currency: currency}, opts \\ []) do
-    default_ops = [symbol: true, code: false, separator: ",", delimiter: "."]
-    filtered_opts = Keyword.take(opts, [:symbol, :code, :separator, :delimiter])
-    opts = Keyword.merge(default_ops, filtered_opts) |> Enum.into(%{})
+    opts =
+      opts
+      |> Keyword.validate!(symbol: true, code: false, separator: ",", delimiter: ".")
+      |> Enum.into(%{})
 
     digits =
       amount
