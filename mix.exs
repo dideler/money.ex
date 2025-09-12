@@ -7,7 +7,18 @@ defmodule Money.MixProject do
       version: "0.1.0",
       elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      description: "Very simple library for money representation in Elixir.",
+      package: [
+        licenses: ["MIT"],
+        links: %{"GitHub" => "https://github.com/dideler/money.ex"}
+      ],
+      docs: [
+        main: "Money",
+        source_ref: "v0.1.0",
+        source_url: "https://github.com/dideler/money.ex",
+        extras: ["README.md"]
+      ]
     ]
   end
 
