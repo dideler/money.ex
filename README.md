@@ -7,14 +7,14 @@ This project was done by hand, no vide-coding or LLMs.
 
 ## Installation
 
-The package can be installed by adding `money` to your list of dependencies in `mix.exs`.
+The package can be installed by adding `money_ex` to your list of dependencies in `mix.exs`.
 
-From [Hex](https://hex.pm/packages/money):
+From [Hex](https://hex.pm/packages/money_ex):
 
 ```elixir
 def deps do
   [
-    {:money, "~> 0.1.0"}
+    {:money_ex, "~> 0.1.0"}
   ]
 end
 ```
@@ -24,7 +24,7 @@ From GitHub:
 ```elixir
 def deps do
   [
-    {:money, github: "dideler/money.ex"}
+    {:money_ex, github: "dideler/money.ex"}
   ]
 end
 ```
@@ -34,12 +34,12 @@ From Git:
 ```elixir
 def deps do
   [
-    {:money, git: "https://github.com/dideler/money.ex.git", tag: "0.1.0"}
+    {:money_ex, git: "https://github.com/dideler/money.ex.git", tag: "0.1.0"}
   ]
 end
 ```
 
-The docs can be found at [https://hexdocs.pm/money](https://hexdocs.pm/money).
+The docs can be found at [https://hexdocs.pm/money_ex](https://hexdocs.pm/money_ex).
 
 ## Roadmap
 
