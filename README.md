@@ -14,7 +14,7 @@ From [Hex](https://hex.pm/packages/money_ex):
 ```elixir
 def deps do
   [
-    {:money_ex, "~> 0.1.0"}
+    {:money_ex, "~> 0.1.1"}
   ]
 end
 ```
@@ -34,7 +34,7 @@ From Git:
 ```elixir
 def deps do
   [
-    {:money_ex, git: "https://github.com/dideler/money.ex.git", tag: "0.1.0"}
+    {:money_ex, git: "https://github.com/dideler/money.ex.git", tag: "0.1.1"}
   ]
 end
 ```
