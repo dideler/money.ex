@@ -4,7 +4,7 @@ defmodule Money.MixProject do
   def project do
     [
       app: :money_ex,
-      version: "0.1.1",
+      version: "0.1.2",
       elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -15,7 +15,7 @@ defmodule Money.MixProject do
       ],
       docs: [
         main: "Money",
-        source_ref: "v0.1.0",
+        source_ref: "v0.1.2",
         source_url: "https://github.com/dideler/money.ex",
         extras: ["README.md"]
       ]
