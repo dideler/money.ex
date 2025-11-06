@@ -151,7 +151,21 @@ defmodule Money do
   def currency_symbol(:USD), do: "$"
   def currency_symbol(:EUR), do: "€"
 
-  @spec to_string(t, keyword) :: binary
+  @typedoc """
+  Options for formatting money as a string.
+
+    * `:symbol` - Include currency symbol (default: `true`)
+    * `:code` - Include currency code (default: `false`)
+    * `:separator` - Thousands separator character (default: `","`)
+    * `:delimiter` - Decimal delimiter character (default: `"."`)
+  """
+  @type format_opts :: [
+          {:symbol, boolean()},
+          {:code, boolean()},
+          {:separator, String.t()},
+          {:delimiter, String.t()}
+        ]
+  @spec to_string(t, format_opts) :: String.t()
   def to_string(%Money{amount: amount, currency: currency}, opts \\ []) do
     opts =
       opts
@@ -174,7 +188,8 @@ defmodule Money do
     String.trim("#{polarity}#{symbol}#{formatted_digits} #{code}")
   end
 
-  def to_s(m), do: Money.to_string(m)
+  @spec to_s(t) :: String.t()
+  def to_s(%Money{} = m), do: Money.to_string(m)
 
   defp digits([], [_] = acc, %{delimiter: del}), do: ["0", del, "0" | acc]
   defp digits([], [_, _] = acc, %{delimiter: del}), do: ["0", del | acc]
@@ -193,5 +208,6 @@ defmodule Money do
 end
 
 defimpl String.Chars, for: Money do
-  def to_string(m), do: Money.to_string(m)
+  @spec to_string(Money.t()) :: String.t()
+  def to_string(%Money{} = m), do: Money.to_string(m)
 end
