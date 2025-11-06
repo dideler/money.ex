@@ -172,39 +172,55 @@ defmodule Money do
       |> Keyword.validate!(symbol: true, code: false, separator: ",", delimiter: ".")
       |> Enum.into(%{})
 
-    digits =
-      amount
-      |> Kernel.abs()
-      |> Kernel.to_string()
-      |> String.graphemes()
-      |> Enum.reverse()
-      |> Enum.with_index()
-
-    formatted_digits = digits(digits, [], opts) |> Enum.join()
-
-    polarity = if amount < 0, do: "-", else: ""
+    formatted_digits = format_digits(amount, opts)
+    sign = if amount < 0, do: "-", else: ""
     symbol = if opts[:symbol], do: currency_symbol(currency), else: ""
     code = if opts[:code], do: currency_code(currency), else: ""
-    String.trim("#{polarity}#{symbol}#{formatted_digits} #{code}")
+    String.trim("#{sign}#{symbol}#{formatted_digits} #{code}")
   end
 
   @spec to_s(t) :: String.t()
   def to_s(%Money{} = m), do: Money.to_string(m)
 
-  defp digits([], [_] = acc, %{delimiter: del}), do: ["0", del, "0" | acc]
-  defp digits([], [_, _] = acc, %{delimiter: del}), do: ["0", del | acc]
-  defp digits([], [_, _, _ | _] = acc, _opts), do: acc
-
-  defp digits([{digit, _} | rem], [_, _] = acc, %{delimiter: del} = opts),
-    do: digits(rem, [digit, del | acc], opts)
-
-  defp digits([{digit, i} | rem], acc, %{separator: sep} = opts) do
-    if rem(i, 3) == 2 do
-      digits(rem, [digit, sep | acc], opts)
-    else
-      digits(rem, [digit | acc], opts)
-    end
+  # Formats an amount as a string with thousands separators and decimal delimiter.
+  #
+  # Example: amount 123499 which represents $1,234.99
+  # 1. Converts amount to digit characters in reverse order: ["9","9","4","3","2","1"]
+  # 2. Indexes each digit by position: [{"9",0}, {"9",1}, {"4",2}, {"3",3}, {"2",4}, {"1",5}]
+  # 3. Recursively processes digits, inserting delimiters and separators at the right positions
+  # 4. Joins the result into a final string: "1,234.99"
+  @spec format_digits(integer, map) :: String.t()
+  defp format_digits(amount, %{separator: s, delimiter: d}) do
+    amount
+    |> Kernel.abs()
+    |> Kernel.to_string()
+    |> String.graphemes()
+    |> Enum.reverse()
+    |> Enum.with_index()
+    |> do_format_digits([], %{separator: s, delimiter: d})
+    |> Enum.join()
   end
+
+  # Recursive formatter that builds the digit list with separators and delimiters.
+  # Base cases handle amounts with fewer than 3 digits (e.g., $0.05, $0.50).
+  @typep indexed_digit :: {String.t(), non_neg_integer()}
+  @spec do_format_digits([indexed_digit()], [String.t()], map) :: [String.t()]
+  defp do_format_digits([], [_] = acc, %{delimiter: delim}), do: ["0", delim, "0" | acc]
+  defp do_format_digits([], [_, _] = acc, %{delimiter: delim}), do: ["0", delim | acc]
+  defp do_format_digits([], [_, _, _ | _] = acc, _opts), do: acc
+
+  # Inserts the decimal delimiter when we've accumulated 2 digits and there's a 3rd digit.
+  defp do_format_digits([{digit, _} | tail], [_, _] = acc, %{delimiter: delim} = opts),
+    do: do_format_digits(tail, [digit, delim | acc], opts)
+
+  # Insert separator every 3 digits for remaining digits beyond decimals.
+  defp do_format_digits([{digit, idx} | tail], acc, %{separator: sep} = opts)
+       when rem(idx, 3) == 2,
+       do: do_format_digits(tail, [digit, sep | acc], opts)
+
+  # No special case, just accumulate the digit.
+  defp do_format_digits([{digit, _} | tail], acc, opts),
+    do: do_format_digits(tail, [digit | acc], opts)
 end
 
 defimpl String.Chars, for: Money do
