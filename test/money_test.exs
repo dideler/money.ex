@@ -151,6 +151,7 @@ defmodule MoneyTest do
     assert [%Money{amount: 10}] = Money.split(%Money{amount: 10}, 1)
     assert [%Money{amount: 0}, %Money{amount: 0}] = Money.split(%Money{amount: 0}, 2)
     assert [%Money{amount: 6}, %Money{amount: 5}] = Money.split(%Money{amount: 11}, 2)
+    assert [%Money{amount: 34}, %Money{amount: 33}, %Money{amount: 33}] = Money.split(~M[100], 3)
   end
 
   test "split/2 when splitting into incompatible parts" do
