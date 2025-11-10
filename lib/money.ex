@@ -126,7 +126,7 @@ defmodule Money do
     [%Money{m | amount: head_a + rem(a, n)} | tail]
   end
 
-  def split(%Money{}, _), do: raise(ArithmeticError)
+  def split(%Money{}, _), do: raise(ArgumentError, "Number of parts must be a positive integer")
 
   @spec convert(t, {currency, currency, number}) :: t
   def convert(%Money{}, {from, from, _rate}), do: raise(ArgumentError, "Exchange rate invalid")

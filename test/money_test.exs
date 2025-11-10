@@ -153,16 +153,16 @@ defmodule MoneyTest do
     assert [%Money{amount: 6}, %Money{amount: 5}] = Money.split(%Money{amount: 11}, 2)
   end
 
-  test "split/2 when dividing by incompatible numbers" do
-    assert_raise ArithmeticError, fn ->
+  test "split/2 when splitting into incompatible parts" do
+    assert_raise ArgumentError, fn ->
       Money.split(%Money{}, 0)
     end
 
-    assert_raise ArithmeticError, fn ->
+    assert_raise ArgumentError, fn ->
       Money.split(%Money{}, -1)
     end
 
-    assert_raise ArithmeticError, fn ->
+    assert_raise ArgumentError, fn ->
       Money.split(%Money{}, 0.5)
     end
   end
