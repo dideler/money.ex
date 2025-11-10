@@ -45,6 +45,6 @@ The docs can be found at [https://hexdocs.pm/money_ex](https://hexdocs.pm/money_
 
 - initialise: ~~new~~, parse (maybe)
 - predicates: ~~equals?~~, ~~zero?~~, ~~positive?~~, ~~negative?~~, ~~gt?~~, ~~lt?~~ ~~ge?/gte?~~ ~~le?/lte?~~ ~~eq?~~ ~~ne?~~, ~~pos?~~, ~~neg?~~
-- operations: ~~add~~, ~~mul~~, ~~div~~, ~~sub~~, ~~abs~~, ~~convert~~, ~~compare~~, ~~split~~, allocate (maybe)
+- operations: ~~add~~, ~~mul~~, ~~div~~, ~~sub~~, ~~abs~~, ~~convert~~, ~~compare~~, ~~split~~, ~~allocate~~
 - presenters: ~~symbol~~, ~~name~~, ~~code~~, ~~to_s/to_string~~
 - extendability: user-defined currencies, user-defined conversion rates
