@@ -167,6 +167,41 @@ defmodule MoneyTest do
     end
   end
 
+  test "allocate/2" do
+    assert [~M[100]] == Money.allocate(~M[100], [1])
+    assert [~M[100]] == Money.allocate(~M[100], [2])
+    assert [~M[100], ~M[0]] == Money.allocate(~M[100], [1, 0])
+    assert [~M[50], ~M[50]] == Money.allocate(~M[100], [3, 3])
+    assert [~M[67], ~M[33]] == Money.allocate(~M[100], [2, 1])
+    assert [~M[60], ~M[40]] == Money.allocate(~M[100], [6, 4])
+    assert [~M[40], ~M[60]] == Money.allocate(~M[100], [40, 60])
+    assert [~M[34], ~M[33], ~M[33]] == Money.allocate(~M[100], [1, 1, 1])
+    assert [~M[34], ~M[33], ~M[33]] == Money.allocate(~M[100], [2, 2, 2])
+    assert [~M[34], ~M[34], ~M[33]] == Money.allocate(~M[101], [1, 1, 1])
+  end
+
+  test "allocate/2 with incompatible parts" do
+    assert_raise ArgumentError, fn ->
+      Money.allocate(%Money{amount: 100}, [])
+    end
+
+    assert_raise ArgumentError, fn ->
+      Money.allocate(%Money{amount: 100}, [0])
+    end
+
+    assert_raise ArgumentError, fn ->
+      Money.allocate(%Money{amount: 100}, [0, 0])
+    end
+
+    assert_raise ArgumentError, fn ->
+      Money.allocate(%Money{amount: 100}, [2, -1])
+    end
+
+    assert_raise ArgumentError, fn ->
+      Money.allocate(%Money{amount: 100}, ["foo"])
+    end
+  end
+
   test "convert/3" do
     m = %Money{amount: 100, currency: :USD}
     assert %Money{amount: 81, currency: :GBP} = Money.convert(m, {:USD, :GBP, 0.809581})

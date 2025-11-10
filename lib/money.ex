@@ -128,6 +128,61 @@ defmodule Money do
 
   def split(%Money{}, _), do: raise(ArgumentError, "Number of parts must be a positive integer")
 
+  @doc """
+  Weighted allocation of money into proportional parts.
+
+  It is a money-preserving allocator, not a purely mathematical allocator.
+  - The sum of all parts must be greater than zero.
+  - Allocated results must always sum to the original money amount.
+  - Remainders are distributed round-robin style, equally in a rotating, sequential order.
+
+  ## Examples
+
+      iex> Money.allocate(~M[100], [4, 6])
+      [%Money{amount: 40}, %Money{amount: 60}]
+      iex> Money.allocate(~M[5], [3, 7])
+      [%Money{amount: 2}, %Money{amount: 3}]
+
+  """
+  @spec allocate(t, [non_neg_integer]) :: [t]
+  def allocate(%Money{}, []), do: raise(ArgumentError, "Parts cannot be empty")
+
+  def allocate(%Money{amount: amount} = m, parts) when is_list(parts) do
+    validate_parts!(parts)
+
+    sum_parts = Enum.sum(parts)
+    base_amount = Kernel.div(amount, sum_parts)
+    remainder = Kernel.rem(amount, sum_parts)
+    base_shares = Enum.map(parts, &%Money{m | amount: base_amount * &1})
+
+    distribute_remainder(base_shares, remainder)
+  end
+
+  defp validate_parts!(parts) do
+    unless Enum.all?(parts, &(is_integer(&1) and &1 >= 0)) do
+      raise(ArgumentError, "All parts must be non-negative integers")
+    end
+
+    unless Enum.sum(parts) > 0 do
+      raise(ArgumentError, "Sum of all parts must be greater than zero")
+    end
+  end
+
+  defp distribute_remainder(base_shares, 0), do: base_shares
+
+  # Uses a round-robin distribution to allocate remainder cents fairly.
+  defp distribute_remainder(base_shares, remainder) do
+    num_shares = length(base_shares)
+
+    Enum.reduce(1..remainder, base_shares, fn i, shares ->
+      idx = Kernel.rem(i - 1, num_shares)
+
+      List.update_at(shares, idx, fn %Money{amount: a} = m ->
+        %Money{m | amount: a + 1}
+      end)
+    end)
+  end
+
   @spec convert(t, {currency, currency, number}) :: t
   def convert(%Money{}, {from, from, _rate}), do: raise(ArgumentError, "Exchange rate invalid")
 
