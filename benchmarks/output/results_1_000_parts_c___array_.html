@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Benchee Report</title>
+  <meta charset="utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=utf8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/benchee.css">
+    <link rel="stylesheet" type="text/css" href="assets/fontello/css/fontello.css">
+  
+</head>
+
+  <body>
+
+    <div class="header">
+  <h1>benchee report</h1>
+  
+  <span class="input-label">
+    1_000_parts
+  </span>
+
+
+  <span class="version-note">
+  <a href="javascript:toggleSystemDataInfo();" title="Click to toggle system info">System info</a>
+</span>
+
+</div>
+
+
+    <article id="system-info" class="benchee-systeminfo" >
+  <h3>System info</h3>
+  <ul class="benchee-systeminfo-list">
+    <li>Elixir: 1.18.4</li>
+    <li>Erlang: 28.0.4</li>
+    <li>Operating system: macOS</li>
+    <li>Available memory: 32 GB</li>
+    <li>CPU Information: Apple M1 Pro</li>
+    <li>Number of Available Cores: 10</li>
+  </ul>
+</article>
+
+
+    
+      <article>
+        <h2>
+          <a name="run_time" href="#run_time">C (:array) Run Time</a>
+          <a href="https://github.com/PragTob/benchee_html/wiki/Chart-Types#individual">
+            <i
+              class="benchee-help-icon icon-question-circle-o"
+              title="Graphs showing the individual run time distribution for C (:array).
+  Run Times Histogram shows the distribution of occurrences of specific run times in buckets.
+  Raw Run Times shows all individual recorded run times in the order they were recorded in."
+            ></i>
+          </a>
+        </h2>
+
+        <section>
+          <table>
+  <thead>
+    <tr>
+      <th class="text-left">Name</th>
+      
+        <th>Iterations per Second</th>
+      
+      <th>Average</th>
+      <th>Deviation</th>
+      <th>Median</th>
+      <th>Mode</th>
+      <th>Minimum</th>
+      <th>Maximum</th>
+      <th>Sample size</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+      
+      <tr>
+        
+          <td class="text-left">C (:array)</td>
+        
+        
+          <td>84.88</td>
+          <td>11.78 ms</td>
+          <td>±1.71%</td>
+          <td>11.76 ms</td>
+          <td>11.71 ms, 11.77 ms, 11.72 ms, 11.83 ms, 11.84 ms, 11.70 ms</td>
+          <td>11.43 ms</td>
+          <td>13.29 ms</td>
+        
+        <td>425</td>
+      </tr>
+    
+  </tbody>
+</table>
+
+        </section>
+
+        <section class="benchee-plot-container">
+          <div id="run-times-histogram" class="plot"></div>
+        </section>
+        <section class="benchee-plot-container">
+          <div id="raw-run-times" class="plot"></div>
+        </section>
+      </article>
+    
+
+    
+      <article>
+        <h2>
+          <a name="memory" href="#memory">C (:array) Memory</a>
+          <a href="https://github.com/PragTob/benchee_html/wiki/Chart-Types#individual">
+            <i
+              class="benchee-help-icon icon-question-circle-o"
+              title="Graphs showing the individual memory usage distribution for C (:array).
+  Run Times Histogram shows the distribution of occurrences of specific run times in buckets.
+  Raw Run Times shows all individual recorded run times in the order they were recorded in."
+            ></i>
+          </a>
+        </h2>
+
+        <section>
+          <table>
+  <thead>
+    <tr>
+      <th class="text-left">Name</th>
+      
+      <th>Average</th>
+      <th>Deviation</th>
+      <th>Median</th>
+      <th>Mode</th>
+      <th>Minimum</th>
+      <th>Maximum</th>
+      <th>Sample size</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+      
+      <tr>
+        
+          <td class="text-left">C (:array)</td>
+        
+        
+          <td>35.94 MB</td>
+          <td>±0.00%</td>
+          <td>35.94 MB</td>
+          <td>35.94 MB</td>
+          <td>35.94 MB</td>
+          <td>35.94 MB</td>
+        
+        <td>75</td>
+      </tr>
+    
+  </tbody>
+</table>
+
+        </section>
+
+        
+      </article>
+    
+
+    <footer>
+      <a href="https://github.com/PragTob/benchee" target="blank">benchee version: 1.5.0 </a>
+<br/>
+<a href="https://github.com/PragTob/benchee_html" target="blank">benchee_html version: 1.0.1</a>
+
+
+    </footer>
+
+    
+  <script src="assets/javascripts/plotly-2.27.0.min.js"></script>
+  <script src="assets/javascripts/benchee.js"></script>
+
+
+
+    <script>
+      var scenario = {"name":"C (:array)","job_name":"C (:array)","input_name":"1_000_parts","run_time_data":{"statistics":{"maximum":13286543,"mode":[11707359,11769983,11723276,11828232,11840899,11701026],"sample_size":425,"average":11781404.45882353,"std_dev_ratio":0.017126048005668224,"ips":84.87952378640757,"std_dev_ips":1.453650799064274,"percentiles":{"25":11683985.5,"50":11756692.0,"75":11833337.0,"99":12712865.42},"median":11756692.0,"minimum":11434155,"outliers":[11434155,12061438,12068270,12071353,12078188,12082771,12084395,12098771,12099395,12101645,12124021,12126186,12127311,12153353,12168436,12186853,12188644,12220853,12236685,12265602,12294268,12320225,12442516,12569597,12623513,12663594,12730177,12820301,13079130,13286543],"lower_outlier_bound":11459958.25,"upper_outlier_bound":12057364.25,"absolute_difference":11747555.735025885,"relative_less":0.002873063556721839,"relative_more":348.06052155038236,"std_dev":201768.89833600543},"samples":[12153353,12168436,12188644,12294268,12084395,11687694,12265602,12078188,11870857,11748235,11779150,11735527,11774025,11775192,11721818,11796651,11744985,11621153,11858816,11876400,11711443,11750275,11728359,11698027,11719985,11731400,11745026,12320225,11828232,11721443,11728693,11715651,11616237,11543988,11577321,11639152,11631611,11609236,11725152,11724693,11690777,11617569,11608903,11579154,11546737,11616361,11434155,11516946,11557779,11799776,12098771,11721568,11645861,11747859,11716443,11741985,11695277,11635153,11758317,11730776,11799025,11869649,11823691,11797983,11735901,11771484,11669236,11577528,11588570,12048271,11760817,11809900,11875524,11745027,11740527,11632652,11557529,11569445,11505446,11528946,11501114,11586986,11623986,11830733,11784525,11739818,11770984,11680194,11668776,11709319,11763400,11793275,11741277,12036188,11720776,11865065,11711235,11808233,11801150,11798442,11724859,11782692,11645944,11865483,11888149,11780900,11861483,11694026,11820942,11700859,11785276,11812692,11837149,12663594,12442516,13079130,13286543,11945482,11994606,11828232,11884190,11664986,11629861,11772733,11636319,11622778,11695735,11615653,11625694,11700527,11549862,11571154,11582361,11764067,11949440,12071353,11840899,11730652,11736902,11858650,11738568,11816276,11804858,11798942,11699069,11984356,11848566,11776942,11756692,11804651,11829149,11815692,11764942,11886275,11842900,11781317,11639986,11747568,11656360,11611694,11616112,11557737,11525780,11733109,11572280,11670903,11684068,11578737,11678777,11687527,12010729,11730693,11764900,11810483,11873899,12068270,11896316,12082771,12061438,11783610,11822858,11771442,11743318,11723276,11773401,11707359,11731527,11701026,12220853,11856691,11751610,11765942,11685486,11739651,11776276,11815983,11907940,11583362,11604320,11749193,11716235,11811900,11594029,11561904,12099395,11847733,11735902,11821232,11506864,11543445,11563237,11685943,11544529,11861649,11992772,11698943,11510363,11587904,11872066,11710693,11881191,11888315,11941773,11725693,11809232,11847858,11784359,11725902,11755776,11696068,11881816,11935147,11802567,11793442,11761192,11830234,11804609,11738193,11832691,11826276,11754902,11772192,11730151,11645235,11564154,11612319,11472489,11521405,11660402,11630028,11685901,11672903,11589404,11640945,11860482,11681027,11564279,11769983,11719151,11650236,11679569,11902649,12124021,11802859,11824442,11842067,11793692,11813317,11804400,11777984,11769983,11793609,11742860,11931731,11919649,11780483,11904482,11800067,11779317,11830942,11826441,11925065,11819774,11742735,11840899,11720693,11570612,12730177,12569597,12820301,12623513,11896982,11803025,11802275,11738818,11882440,11807984,11774609,11710318,11746110,11641694,11618779,11654902,11848357,11961272,11992148,12002272,11773901,11791775,11726068,11804608,11723276,11754735,11697777,11747193,11985731,11865149,11784900,11782734,11842108,11748693,11806609,11822524,11936607,11903856,11852733,11836108,11786983,11702485,11753609,11685859,11729568,11683903,11736527,11810108,11806776,11711276,11722776,11789109,11751693,11706109,11848316,11726485,11766192,11878107,12126186,12236685,12101645,11917815,11942106,11833983,11879233,11896315,11850900,11704526,11638736,11701026,11943772,11922190,11886108,11863607,11779652,11818316,11861941,11835941,11946356,11902898,11781192,11759775,11812526,11803359,11747900,11661902,11517154,11516071,11484280,11520946,11478655,11502905,11504238,11608278,11580612,11534696,11550487,11511238,11629361,11637987,11735942,11707069,12127311,11855941,12032229,12186853,11692485,11720485,11802692,11662194,11798817,11641527,11799525,11758900,11707360,11733860,11789734,11841524,11781984,11781026,11756443,11707359,11756526,11780401,11628569,11784942,11772567,11691319,11636944,11750860,11723943,11616485,11606611,11577654,11627736,11555612,11574154,11597111]},"memory_usage_data":{"statistics":{"maximum":37689080,"mode":37689080,"sample_size":75,"average":37689080.0,"std_dev_ratio":0.0,"ips":null,"std_dev_ips":null,"percentiles":{"25":37689080.0,"50":37689080.0,"75":37689080.0,"99":37689080.0},"median":37689080.0,"minimum":37689080,"outliers":[],"lower_outlier_bound":37689080.0,"upper_outlier_bound":37689080.0,"absolute_difference":37585128.0,"relative_less":0.002758146391474666,"relative_more":362.5623364629829,"std_dev":0.0},"samples":[37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080,37689080]},"tag":null};
+
+      var inputHeadline = " (1_000_parts)"
+
+      
+        drawRunTimeHistogram(scenario, inputHeadline);
+        drawRawRunTimeChart(scenario, inputHeadline);
+      
+
+      
+        if (scenario.memory_usage_data.statistics.std_dev !== 0) {
+          drawMemoryHistogram(scenario, inputHeadline);
+          drawRawMemoryChart(scenario, inputHeadline);
+        };
+      
+    </script>
+  </body>
+</html>

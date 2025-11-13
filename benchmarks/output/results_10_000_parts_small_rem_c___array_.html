@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Benchee Report</title>
+  <meta charset="utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=utf8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/benchee.css">
+    <link rel="stylesheet" type="text/css" href="assets/fontello/css/fontello.css">
+  
+</head>
+
+  <body>
+
+    <div class="header">
+  <h1>benchee report</h1>
+  
+  <span class="input-label">
+    10_000_parts_small_rem
+  </span>
+
+
+  <span class="version-note">
+  <a href="javascript:toggleSystemDataInfo();" title="Click to toggle system info">System info</a>
+</span>
+
+</div>
+
+
+    <article id="system-info" class="benchee-systeminfo" >
+  <h3>System info</h3>
+  <ul class="benchee-systeminfo-list">
+    <li>Elixir: 1.18.4</li>
+    <li>Erlang: 28.0.4</li>
+    <li>Operating system: macOS</li>
+    <li>Available memory: 32 GB</li>
+    <li>CPU Information: Apple M1 Pro</li>
+    <li>Number of Available Cores: 10</li>
+  </ul>
+</article>
+
+
+    
+      <article>
+        <h2>
+          <a name="run_time" href="#run_time">C (:array) Run Time</a>
+          <a href="https://github.com/PragTob/benchee_html/wiki/Chart-Types#individual">
+            <i
+              class="benchee-help-icon icon-question-circle-o"
+              title="Graphs showing the individual run time distribution for C (:array).
+  Run Times Histogram shows the distribution of occurrences of specific run times in buckets.
+  Raw Run Times shows all individual recorded run times in the order they were recorded in."
+            ></i>
+          </a>
+        </h2>
+
+        <section>
+          <table>
+  <thead>
+    <tr>
+      <th class="text-left">Name</th>
+      
+        <th>Iterations per Second</th>
+      
+      <th>Average</th>
+      <th>Deviation</th>
+      <th>Median</th>
+      <th>Mode</th>
+      <th>Minimum</th>
+      <th>Maximum</th>
+      <th>Sample size</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+      
+      <tr>
+        
+          <td class="text-left">C (:array)</td>
+        
+        
+          <td>0.69</td>
+          <td>0.0240 min</td>
+          <td>±0.31%</td>
+          <td>0.0240 min</td>
+          <td>none</td>
+          <td>0.0240 min</td>
+          <td>0.0241 min</td>
+        
+        <td>4</td>
+      </tr>
+    
+  </tbody>
+</table>
+
+        </section>
+
+        <section class="benchee-plot-container">
+          <div id="run-times-histogram" class="plot"></div>
+        </section>
+        <section class="benchee-plot-container">
+          <div id="raw-run-times" class="plot"></div>
+        </section>
+      </article>
+    
+
+    
+      <article>
+        <h2>
+          <a name="memory" href="#memory">C (:array) Memory</a>
+          <a href="https://github.com/PragTob/benchee_html/wiki/Chart-Types#individual">
+            <i
+              class="benchee-help-icon icon-question-circle-o"
+              title="Graphs showing the individual memory usage distribution for C (:array).
+  Run Times Histogram shows the distribution of occurrences of specific run times in buckets.
+  Raw Run Times shows all individual recorded run times in the order they were recorded in."
+            ></i>
+          </a>
+        </h2>
+
+        <section>
+          <table>
+  <thead>
+    <tr>
+      <th class="text-left">Name</th>
+      
+      <th>Average</th>
+      <th>Deviation</th>
+      <th>Median</th>
+      <th>Mode</th>
+      <th>Minimum</th>
+      <th>Maximum</th>
+      <th>Sample size</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+      
+      <tr>
+        
+          <td class="text-left">C (:array)</td>
+        
+        
+          <td>4.40 GB</td>
+          <td>±0.00%</td>
+          <td>4.40 GB</td>
+          <td>none</td>
+          <td>4.40 GB</td>
+          <td>4.40 GB</td>
+        
+        <td>1</td>
+      </tr>
+    
+  </tbody>
+</table>
+
+        </section>
+
+        
+      </article>
+    
+
+    <footer>
+      <a href="https://github.com/PragTob/benchee" target="blank">benchee version: 1.5.0 </a>
+<br/>
+<a href="https://github.com/PragTob/benchee_html" target="blank">benchee_html version: 1.0.1</a>
+
+
+    </footer>
+
+    
+  <script src="assets/javascripts/plotly-2.27.0.min.js"></script>
+  <script src="assets/javascripts/benchee.js"></script>
+
+
+
+    <script>
+      var scenario = {"name":"C (:array)","job_name":"C (:array)","input_name":"10_000_parts_small_rem","run_time_data":{"statistics":{"maximum":1448410516,"mode":null,"sample_size":4,"average":1441773900.5,"std_dev_ratio":0.003127377076071257,"ips":0.693590027987887,"std_dev_ips":0.0021691175537209397,"percentiles":{"25":1438749530.75,"50":1440150978.0,"75":1446421192.75,"99":1448410516.0},"median":1440150978.0,"minimum":1438383130,"outliers":[],"lower_outlier_bound":1427242037.75,"upper_outlier_bound":1457928685.75,"absolute_difference":1441362650.916303,"relative_less":2.852386102664054e-4,"relative_more":3505.8367416179253,"std_dev":4508970.645301541},"samples":[1448410516,1438383130,1440453223,1439848733]},"memory_usage_data":{"statistics":{"maximum":4720326208,"mode":null,"sample_size":1,"average":4720326208.0,"std_dev_ratio":0.0,"ips":null,"std_dev_ips":null,"percentiles":{"25":4720326208,"50":4720326208.0,"75":4720326208.0,"99":4720326208.0},"median":4720326208.0,"minimum":4720326208,"outliers":[],"lower_outlier_bound":4720326208.0,"upper_outlier_bound":4720326208.0,"absolute_difference":4719286304.0,"relative_less":2.2030341848780974e-4,"relative_more":4539.194202541773,"std_dev":0.0},"samples":[4720326208]},"tag":null};
+
+      var inputHeadline = " (10_000_parts_small_rem)"
+
+      
+        drawRunTimeHistogram(scenario, inputHeadline);
+        drawRawRunTimeChart(scenario, inputHeadline);
+      
+
+      
+        if (scenario.memory_usage_data.statistics.std_dev !== 0) {
+          drawMemoryHistogram(scenario, inputHeadline);
+          drawRawMemoryChart(scenario, inputHeadline);
+        };
+      
+    </script>
+  </body>
+</html>

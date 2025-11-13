@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Benchee Report</title>
+  <meta charset="utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=utf8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/benchee.css">
+    <link rel="stylesheet" type="text/css" href="assets/fontello/css/fontello.css">
+  
+</head>
+
+  <body>
+
+    <div class="header">
+  <h1>benchee report</h1>
+  
+  <span class="input-label">
+    10_000_parts_small_rem
+  </span>
+
+
+  <span class="version-note">
+  <a href="javascript:toggleSystemDataInfo();" title="Click to toggle system info">System info</a>
+</span>
+
+</div>
+
+
+    <article id="system-info" class="benchee-systeminfo" >
+  <h3>System info</h3>
+  <ul class="benchee-systeminfo-list">
+    <li>Elixir: 1.18.4</li>
+    <li>Erlang: 28.0.4</li>
+    <li>Operating system: macOS</li>
+    <li>Available memory: 32 GB</li>
+    <li>CPU Information: Apple M1 Pro</li>
+    <li>Number of Available Cores: 10</li>
+  </ul>
+</article>
+
+
+    
+      <article>
+        <h2>
+          <a name="run_time" href="#run_time">A (reduce + update_at) Run Time</a>
+          <a href="https://github.com/PragTob/benchee_html/wiki/Chart-Types#individual">
+            <i
+              class="benchee-help-icon icon-question-circle-o"
+              title="Graphs showing the individual run time distribution for A (reduce + update_at).
+  Run Times Histogram shows the distribution of occurrences of specific run times in buckets.
+  Raw Run Times shows all individual recorded run times in the order they were recorded in."
+            ></i>
+          </a>
+        </h2>
+
+        <section>
+          <table>
+  <thead>
+    <tr>
+      <th class="text-left">Name</th>
+      
+        <th>Iterations per Second</th>
+      
+      <th>Average</th>
+      <th>Deviation</th>
+      <th>Median</th>
+      <th>Mode</th>
+      <th>Minimum</th>
+      <th>Maximum</th>
+      <th>Sample size</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+      
+      <tr>
+        
+          <td class="text-left">A (reduce + update_at)</td>
+        
+        
+          <td>0.00238</td>
+          <td>7.01 min</td>
+          <td>±0.00%</td>
+          <td>7.01 min</td>
+          <td>none</td>
+          <td>7.01 min</td>
+          <td>7.01 min</td>
+        
+        <td>1</td>
+      </tr>
+    
+  </tbody>
+</table>
+
+        </section>
+
+        <section class="benchee-plot-container">
+          <div id="run-times-histogram" class="plot"></div>
+        </section>
+        <section class="benchee-plot-container">
+          <div id="raw-run-times" class="plot"></div>
+        </section>
+      </article>
+    
+
+    
+      <article>
+        <h2>
+          <a name="memory" href="#memory">A (reduce + update_at) Memory</a>
+          <a href="https://github.com/PragTob/benchee_html/wiki/Chart-Types#individual">
+            <i
+              class="benchee-help-icon icon-question-circle-o"
+              title="Graphs showing the individual memory usage distribution for A (reduce + update_at).
+  Run Times Histogram shows the distribution of occurrences of specific run times in buckets.
+  Raw Run Times shows all individual recorded run times in the order they were recorded in."
+            ></i>
+          </a>
+        </h2>
+
+        <section>
+          <table>
+  <thead>
+    <tr>
+      <th class="text-left">Name</th>
+      
+      <th>Average</th>
+      <th>Deviation</th>
+      <th>Median</th>
+      <th>Mode</th>
+      <th>Minimum</th>
+      <th>Maximum</th>
+      <th>Sample size</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+      
+      <tr>
+        
+          <td class="text-left">A (reduce + update_at)</td>
+        
+        
+          <td>745.58 GB</td>
+          <td>±0.00%</td>
+          <td>745.58 GB</td>
+          <td>none</td>
+          <td>745.58 GB</td>
+          <td>745.58 GB</td>
+        
+        <td>1</td>
+      </tr>
+    
+  </tbody>
+</table>
+
+        </section>
+
+        
+      </article>
+    
+
+    <footer>
+      <a href="https://github.com/PragTob/benchee" target="blank">benchee version: 1.5.0 </a>
+<br/>
+<a href="https://github.com/PragTob/benchee_html" target="blank">benchee_html version: 1.0.1</a>
+
+
+    </footer>
+
+    
+  <script src="assets/javascripts/plotly-2.27.0.min.js"></script>
+  <script src="assets/javascripts/benchee.js"></script>
+
+
+
+    <script>
+      var scenario = {"name":"A (reduce + update_at)","job_name":"A (reduce + update_at)","input_name":"10_000_parts_small_rem","run_time_data":{"statistics":{"maximum":420434084623,"mode":null,"sample_size":1,"average":420434084623.0,"std_dev_ratio":0.0,"ips":0.0023784941244635108,"std_dev_ips":0.0,"percentiles":{"25":420434084623,"50":420434084623.0,"75":420434084623.0,"99":420434084623.0},"median":420434084623.0,"minimum":420434084623,"outliers":[],"lower_outlier_bound":420434084623.0,"upper_outlier_bound":420434084623.0,"absolute_difference":420433673373.4163,"relative_less":9.781547185113666e-7,"relative_more":1022333.1555583347,"std_dev":0.0},"samples":[420434084623]},"memory_usage_data":{"statistics":{"maximum":800560591728,"mode":null,"sample_size":1,"average":800560591728.0,"std_dev_ratio":0.0,"ips":null,"std_dev_ips":null,"percentiles":{"25":800560591728,"50":800560591728.0,"75":800560591728.0,"99":800560591728.0},"median":800560591728.0,"minimum":800560591728,"outliers":[],"lower_outlier_bound":800560591728.0,"upper_outlier_bound":800560591728.0,"absolute_difference":800559551824.0,"relative_less":1.2989697603717668e-6,"relative_more":769840.8619718744,"std_dev":0.0},"samples":[800560591728]},"tag":null};
+
+      var inputHeadline = " (10_000_parts_small_rem)"
+
+      
+        drawRunTimeHistogram(scenario, inputHeadline);
+        drawRawRunTimeChart(scenario, inputHeadline);
+      
+
+      
+        if (scenario.memory_usage_data.statistics.std_dev !== 0) {
+          drawMemoryHistogram(scenario, inputHeadline);
+          drawRawMemoryChart(scenario, inputHeadline);
+        };
+      
+    </script>
+  </body>
+</html>
