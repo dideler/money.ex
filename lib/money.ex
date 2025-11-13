@@ -152,8 +152,8 @@ defmodule Money do
 
     sum_parts = Enum.sum(parts)
     base_amount = Kernel.div(amount, sum_parts)
-    remainder = Kernel.rem(amount, sum_parts)
     base_shares = Enum.map(parts, &%Money{m | amount: base_amount * &1})
+    remainder = Kernel.rem(amount, sum_parts)
 
     distribute_remainder(base_shares, remainder)
   end
@@ -168,18 +168,23 @@ defmodule Money do
     end
   end
 
-  defp distribute_remainder(base_shares, 0), do: base_shares
+  defp distribute_remainder(shares, 0), do: shares
 
-  # Uses a round-robin distribution to allocate remainder cents fairly.
-  defp distribute_remainder(base_shares, remainder) do
-    num_shares = length(base_shares)
+  # Uses a quota-based round-robin distribution to allocate remaining cents fairly.
+  defp distribute_remainder(shares, remainder) do
+    num_shares = length(shares)
 
-    Enum.reduce(1..remainder, base_shares, fn i, shares ->
-      idx = Kernel.rem(i - 1, num_shares)
+    # Calculates the amount we can evenly allocate to each share from the remainder,
+    # and the remainder of the remainder that we cannot evenly allocate per share.
+    # This avoids looping over the shares multiple times to distribute a cent at a time.
+    extra_per_share = Kernel.div(remainder, num_shares)
+    extra_remainder = Kernel.rem(remainder, num_shares)
 
-      List.update_at(shares, idx, fn %Money{amount: a} = m ->
-        %Money{m | amount: a + 1}
-      end)
+    shares
+    |> Enum.with_index()
+    |> Enum.map(fn {%Money{amount: amount} = money, idx} ->
+      extra = extra_per_share + if(idx < extra_remainder, do: 1, else: 0)
+      %Money{money | amount: amount + extra}
     end)
   end
 
