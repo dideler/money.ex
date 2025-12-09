@@ -4,8 +4,10 @@ defmodule MoneyTest do
   import Money
 
   test "sigil" do
+    assert %Money{amount: 10_00} == ~M[10_00]
     assert %Money{amount: 100, currency: :GBP} == ~M[100]
-    assert %Money{amount: 100, currency: :USD} == ~M[100]USD
+    assert %Money{amount: 100, currency: :USD} == ~M[1_00]USD
+    assert %Money{amount: -50, currency: :EUR} == ~M[-50]EUR
   end
 
   test "zero?/1" do

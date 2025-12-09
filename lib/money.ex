@@ -29,11 +29,31 @@ defmodule Money do
 
   defstruct amount: 0, currency: :GBP
 
-  @doc "Create Money structs with the ~M sigil. Requires 'import Money' to use sigil."
-  def sigil_M(amount_raw, []), do: new(String.to_integer(amount_raw))
+  @doc """
+  Creates a Money struct using the ~M sigil.
+
+  ## Examples
+
+    iex> import Money, only: [sigil_M: 2]
+    iex> ~M[10_00]
+    %Money{amount: 1000, currency: :GBP}
+
+    iex> ~M[-500]EUR
+    %Money{amount: -500, currency: :EUR}
+
+  Add `import Money` to your module to use the sigil.
+  """
+  def sigil_M(amount_raw, []) do
+    amount_raw
+    |> String.replace("_", "")
+    |> String.to_integer()
+    |> new()
+  end
 
   def sigil_M(amount_raw, currency_raw) do
-    new(String.to_integer(amount_raw), List.to_string(currency_raw) |> String.to_atom())
+    amount = amount_raw |> String.replace("_", "") |> String.to_integer()
+    currency = currency_raw |> List.to_string() |> String.to_atom()
+    new(amount, currency)
   end
 
   def new(amount) when is_integer(amount), do: struct(__MODULE__, amount: amount)
