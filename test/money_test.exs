@@ -184,6 +184,59 @@ defmodule MoneyTest do
     assert [~M[34], ~M[34], ~M[33]] == Money.allocate(~M[101], [1, 1, 1])
   end
 
+  for amount <- [700_273, -700_273] do
+    test "allocate/2 with complex case from ruby money gem (amount: #{amount})" do
+      amount = unquote(amount)
+
+      allocations = [
+        1.1818583143661,
+        1.1818583143661,
+        1.1818583143661,
+        1.1818583143661,
+        1.1818583143661,
+        1.1818583143661,
+        1.1818583143661,
+        1.170126087450276,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+
+      normalised_allocations = Money.Util.normalize_ratios(allocations)
+
+      result = Money.allocate(Money.new(amount), normalised_allocations)
+
+      sum_of_parts = Enum.reduce(result, 0, fn %Money{amount: a}, acc -> acc + a end)
+      assert sum_of_parts == amount
+
+      sign = if amount < 0, do: -1, else: 1
+
+      # Note Ruby's money gem allocates slightly differently.
+      # For index 0, they allocate 61566, we allocate 61565.
+      # For index 7, they allocate 60953, we allocate 60954.
+      # Our strategy is more fair given that shares 0-6 have equal weighting.
+      expected_shares =
+        [
+          61565,
+          61565,
+          61565,
+          61565,
+          61565,
+          61565,
+          61565,
+          60954,
+          52091,
+          52091,
+          52091,
+          52091
+        ]
+        |> Enum.map(&Money.new(&1 * sign))
+
+      assert result == expected_shares
+    end
+  end
+
   test "allocate/2 with incompatible parts" do
     assert_raise ArgumentError, fn ->
       Money.allocate(%Money{amount: 100}, [])
@@ -281,5 +334,42 @@ defmodule MoneyTest do
 
   test "String.Chars protocol" do
     assert "$1.99" == Kernel.to_string(%Money{amount: 199, currency: :USD})
+  end
+end
+
+# TODO: Consider moving this to the main library as a public helper function,
+#       as it allows users to work with fractions when allocating money into shares.
+#       My hesitation is that it introduces Decimal into the main library,
+#       which I've been trying to avoid given our int-based representation.
+defmodule Money.Util do
+  @doc """
+  Normalizes a list of fractional ratios to integer ratios suitable for allocation.
+  Example: [0.5, 0.25, 0.125] -> [500, 250, 125]
+  """
+  def normalize_ratios(fractions) do
+    scale = get_max_decimal_places(fractions)
+    scale_factor = :math.pow(10, scale)
+
+    Enum.map(fractions, fn f -> round(f * scale_factor) end)
+  end
+
+  defp get_max_decimal_places(fractions) do
+    fractions
+    |> Enum.map(&count_decimal_places/1)
+    |> Enum.max()
+  end
+
+  defp count_decimal_places(number) do
+    number
+    |> Decimal.from_float()
+    |> Decimal.to_string()
+    |> parse_decimal_length()
+  end
+
+  defp parse_decimal_length(string) do
+    case String.split(string, ".") do
+      [_, fraction] -> String.length(fraction)
+      _ -> 0
+    end
   end
 end

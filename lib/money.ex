@@ -202,11 +202,17 @@ defmodule Money do
     extra_per_share = Kernel.div(remainder, num_shares)
     extra_remainder = Kernel.rem(remainder, num_shares)
 
+    # Account for negative remainders (when amount is negative)
+    # by adjusting in the opposite direction by comparing to the
+    # number of items to adjust, not the (negative) remainder itself.
+    adjustment_unit = if remainder > 0, do: 1, else: -1
+    items_to_adjust = Kernel.abs(extra_remainder)
+
     shares
     |> Enum.with_index()
     |> Enum.map(fn {%Money{amount: amount} = money, idx} ->
-      extra = extra_per_share + if(idx < extra_remainder, do: 1, else: 0)
-      %Money{money | amount: amount + extra}
+      remainder_adjustment = if idx < items_to_adjust, do: adjustment_unit, else: 0
+      %Money{money | amount: amount + extra_per_share + remainder_adjustment}
     end)
   end
 

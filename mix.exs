@@ -32,7 +32,8 @@ defmodule Money.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_doc, "~> 0.39", only: :dev, runtime: false}
+      {:ex_doc, "~> 0.39", only: :dev, runtime: false},
+      {:decimal, "~> 2.0", only: :test}
     ]
   end
 end
