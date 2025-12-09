@@ -31,17 +31,19 @@ defmodule Money do
 
   @doc """
   Creates a Money struct using the ~M sigil.
+  Underscores and currency codes are optional.
 
   ## Examples
 
     iex> import Money, only: [sigil_M: 2]
-    iex> ~M[10_00]
-    %Money{amount: 1000, currency: :GBP}
-
-    iex> ~M[-500]EUR
+    iex> ~M[-5_00]EUR
     %Money{amount: -500, currency: :EUR}
 
-  Add `import Money` to your module to use the sigil.
+  If you prefer to use aliases:
+
+    iex> alias Money, as: M
+    iex> M.new(1_00)
+    %Money{amount: 100, currency: :GBP}
   """
   def sigil_M(amount_raw, []) do
     amount_raw
