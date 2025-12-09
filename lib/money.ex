@@ -173,9 +173,9 @@ defmodule Money do
     validate_parts!(parts)
 
     sum_parts = Enum.sum(parts)
-    base_amount = Kernel.div(amount, sum_parts)
-    base_shares = Enum.map(parts, &%Money{m | amount: base_amount * &1})
-    remainder = Kernel.rem(amount, sum_parts)
+    base_shares = Enum.map(parts, &%Money{m | amount: Kernel.div(amount * &1, sum_parts)})
+    allocated_amount = Enum.reduce(base_shares, 0, fn %{amount: a}, acc -> a + acc end)
+    remainder = amount - allocated_amount
 
     distribute_remainder(base_shares, remainder)
   end
