@@ -12,6 +12,7 @@ defmodule Money do
     end
   end
 
+  @version Mix.Project.config()[:version]
   @supported_currencies ~w(GBP USD EUR)a
 
   @type currency ::
@@ -28,6 +29,8 @@ defmodule Money do
         }
 
   defstruct amount: 0, currency: :GBP
+
+  def version, do: @version
 
   @doc """
   Creates a Money struct using the ~M sigil.
